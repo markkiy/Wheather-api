@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<div class="window">
+
+    <div class="window-header">
+        <div class="dots">
+            <span class="red"></span>
+            <span class="yellow"></span>
+            <span class="green"></span>
+        </div>
+        <h1>Weather</h1>
+    </div>
+
+    <div class="content">
+
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Település...">
+            <button id="searchBtn">Keresés</button>
+        </div>
+
+        <div class="current-section">
+            <h2 id="cityName">Város neve</h2>
+            <div class="temperature" id="temperature">--°C</div>
+            <div class="description" id="description">Időjárás állapot</div>
+            <div class="details">
+                <p>Szél: <span id="wind">-- km/h</span></p>
+            </div>
+        </div>
+
+        <div class="forecast-section">
+            <h3>5 napos előrejelzés</h3>
+            <div class="forecast-grid" id="forecastContainer">
+
+                <div class="forecast-day">
+                    <p>Hétfő</p>
+                    <p>--° / --°</p>
+                </div>
+
+                <div class="forecast-day">
+                    <p>Kedd</p>
+                    <p>--° / --°</p>
+                </div>
+
+                <div class="forecast-day">
+                    <p>Szerda</p>
+                    <p>--° / --°</p>
+                </div>
+
+                <div class="forecast-day">
+                    <p>Csütörtök</p>
+                    <p>--° / --°</p>
+                </div>
+
+                <div class="forecast-day">
+                    <p>Péntek</p>
+                    <p>--° / --°</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="scirpts/script.js"></script>
+</body>
+</html>
