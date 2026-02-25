@@ -7,69 +7,82 @@
 </head>
 <body>
 
-<div class="window">
+<div class="app">
 
-    <div class="window-header">
-        <div class="dots">
-            <span class="red"></span>
-            <span class="yellow"></span>
-            <span class="green"></span>
+    <!-- BAL PANEL -->
+    <div class="left-panel">
+        <div class="date">
+            <h2>Kedd</h2>
+            <p>15 Jan 2026</p>
+            <span class="location">📍 Budapest, HU</span>
         </div>
-        <h1>Weather</h1>
+
+        <div class="weather-main">
+            <div class="icon">☀️</div>
+            <h1>29°C</h1>
+            <p class="status">Sunny</p>
+        </div>
     </div>
 
-    <div class="content">
+    <!-- JOBB PANEL -->
+    <div class="right-panel">
 
+        <!-- KERESŐ -->
         <div class="search-box">
-            <input type="text" id="cityInput" placeholder="Település...">
-            <button id="searchBtn">Keresés</button>
+            <input type="text" placeholder="Város keresése...">
+            <button>🔍</button>
         </div>
 
-        <div class="current-section">
-            <h2 id="cityName">Város neve</h2>
-            <div class="temperature" id="temperature">--°C</div>
-            <div class="description" id="description">Időjárás állapot</div>
-            <div class="details">
-                <p>Szél: <span id="wind">-- km/h</span></p>
+        <!-- EXTRA INFÓ -->
+        <div class="details">
+            <div>
+                <p>Precipitation</p>
+                <span>0%</span>
+            </div>
+            <div>
+                <p>Humidity</p>
+                <span>34%</span>
+            </div>
+            <div>
+                <p>Wind</p>
+                <span>0 km/h</span>
             </div>
         </div>
 
-        <div class="forecast-section">
-            <h3>5 napos előrejelzés</h3>
-            <div class="forecast-grid" id="forecastContainer">
-
-                <div class="forecast-day">
-                    <p>Hétfő</p>
-                    <p>--° / --°</p>
-                </div>
-
-                <div class="forecast-day">
-                    <p>Kedd</p>
-                    <p>--° / --°</p>
-                </div>
-
-                <div class="forecast-day">
-                    <p>Szerda</p>
-                    <p>--° / --°</p>
-                </div>
-
-                <div class="forecast-day">
-                    <p>Csütörtök</p>
-                    <p>--° / --°</p>
-                </div>
-
-                <div class="forecast-day">
-                    <p>Péntek</p>
-                    <p>--° / --°</p>
-                </div>
-
+        <!-- 5 NAP -->
+        <div class="forecast">
+            <div class="day active">
+                <p>Tue</p>
+                <span>☀️</span>
+                <h4>29°C</h4>
+            </div>
+            <div class="day">
+                <p>Wed</p>
+                <span>☁️</span>
+                <h4>21°C</h4>
+            </div>
+            <div class="day">
+                <p>Thu</p>
+                <span>🌧️</span>
+                <h4>8°C</h4>
+            </div>
+            <div class="day">
+                <p>Fri</p>
+                <span>🌤️</span>
+                <h4>19°C</h4>
+            </div>
+            <div class="day">
+                <p>Sat</p>
+                <span>🌩️</span>
+                <h4>17°C</h4>
             </div>
         </div>
+
+        <button class="change-btn">Keresés</button>
 
     </div>
 
 </div>
 
-<script src="scirpts/script.js"></script>
 </body>
 </html>
