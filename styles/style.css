@@ -34,7 +34,11 @@ body {
         rgba(0,0,0,0.6)
     ),
     url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") center/cover;
+<<<<<<< HEAD
     color: rgb(245,245,245,0.9);
+=======
+    color: white;
+>>>>>>> 7192fea6328a2c57cc03fd6f53ecd80516381fbc
     position: relative;
     left: -40px; /* kiugrás */
     box-shadow: 0 30px 60px rgba(0,0,0,0.5);
@@ -43,6 +47,7 @@ body {
     justify-content: space-between;
 }
 
+<<<<<<< HEAD
 .date{
     font-weight: bold;
     font-size: 30px;
@@ -63,6 +68,22 @@ body {
     opacity: 0.9;
 }
 
+=======
+.weather-main {
+    text-align: center;
+}
+
+.weather-main h1 {
+    font-size: 70px;
+    margin: 20px 0;
+}
+
+.status {
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+>>>>>>> 7192fea6328a2c57cc03fd6f53ecd80516381fbc
 /* JOBB PANEL */
 .right-panel {
     width: 60%;
