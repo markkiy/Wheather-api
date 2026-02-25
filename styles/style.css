@@ -7,152 +7,143 @@
 
 body {
     height: 100vh;
-    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    background: #1c1f26;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Fő ablak */
-.window {
-    width: 650px;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(25px);
-    border-radius: 24px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
-    overflow: hidden;
-}
-
-/* Header */
-.window-header {
+.app {
     display: flex;
-    align-items: center;
-    padding: 14px 20px;
-    background: rgba(255, 255, 255, 0.8);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    width: 1100px;
+    height: 600px;
+    border-radius: 30px;
+    background: #2a2f3a;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    overflow: visible;
 }
 
-.dots {
+/* BAL PANEL */
+.left-panel {
+    width: 40%;
+    padding: 40px;
+    border-radius: 30px;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.2),
+        rgba(0,0,0,0.6)
+    ),
+    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") center/cover;
+    color: rgb(245,245,245,0.9);
+    position: relative;
+    left: -40px; /* kiugrás */
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
     display: flex;
-    gap: 8px;
-    margin-right: 14px;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.dots span {
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
+.date{
+    font-weight: bold;
+    font-size: 30px;
+
 }
 
-.red { background: #ff5f57; }
-.yellow { background: #ffbd2e; }
-.green { background: #28c840; }
-
-.window-header h1 {
-    font-size: 18px;
-    font-weight: 500;
-    color: #333;
+.weather-main {
+    text-align: center;
 }
 
-/* Tartalom */
-.content {
-    padding: 32px;
+.weather-main h1 {
+    font-size: 70px;
+    margin: 20px 0;
 }
 
-/* Search */
+.status {
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+/* JOBB PANEL */
+.right-panel {
+    width: 60%;
+    padding: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* SEARCH */
 .search-box {
     display: flex;
-    gap: 12px;
-    margin-bottom: 30px;
+    gap: 10px;
 }
 
 .search-box input {
     flex: 1;
-    padding: 12px 16px;
-    border-radius: 14px;
-    border: 1px solid rgba(0,0,0,0.08);
-    font-size: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #3a3f4b;
+    color: white;
+    outline: none;
 }
 
 .search-box button {
-    padding: 12px 20px;
-    border-radius: 14px;
+    padding: 12px 16px;
+    border-radius: 12px;
     border: none;
-    background: #0071e3;
-    color: white;
-    font-weight: 500;
     cursor: pointer;
-    transition: 0.2s;
+    background: linear-gradient(90deg, #6dd5fa, #2980b9);
+    color: white;
 }
 
-.search-box button:hover {
-    background: #005ecb;
-}
-
-/* Current weather */
-.current-section {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.current-section h2 {
-    font-size: 22px;
-    font-weight: 500;
-    color: #333;
-}
-
-.temperature {
-    font-size: 72px;
-    font-weight: 600;
-    margin: 14px 0;
-    color: #111;
-}
-
-.description {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 14px;
-}
-
+/* DETAILS */
 .details {
-    font-size: 14px;
-    color: #444;
+    margin-top: 40px;
 }
 
-/* Forecast */
-.forecast-section h3 {
+.details div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
     font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 18px;
-    color: #333;
+    opacity: 0.85;
 }
 
-.forecast-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 14px;
+/* FORECAST */
+.forecast {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
 }
 
-.forecast-day {
-    background: rgba(255,255,255,0.85);
-    padding: 16px;
-    border-radius: 18px;
+.day {
+    background: #3a3f4b;
+    padding: 15px;
+    border-radius: 20px;
+    width: 18%;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
-.forecast-day:hover {
-    transform: translateY(-4px);
+.day.active {
+    background: white;
+    color: black;
 }
 
-.forecast-day p:first-child {
-    font-weight: 500;
-    margin-bottom: 6px;
-    color: #333;
+.day:hover {
+    transform: translateY(-5px);
 }
 
-.forecast-day p:last-child {
-    font-size: 14px;
-    color: #555;
+/* BUTTON */
+.change-btn {
+    margin-top: 40px;
+    padding: 15px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(90deg, #6dd5fa, #2980b9);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
 }
