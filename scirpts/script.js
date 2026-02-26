@@ -19,7 +19,7 @@ async function GetWeather() {
     const lon = geoData.results[0].longitude
     const timezone = geoData.results[0].timezone;
     //ez valtozott precipitation helyett precipitation_probability
-    const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto&hourly=relative_humidity_2m,precipitation_probability`)
+    const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weather_code,temperature_2m_max&timezone=auto&hourly=relative_humidity_2m,precipitation_probability`)
     const weatherData = await weatherResponse.json();
 
     console.log(weatherData.current_weather.time)
@@ -36,7 +36,33 @@ async function GetWeather() {
     const perci = weatherData.hourly.precipitation_probability[0];
     console.log(perci)
     writeData(city, temp, humidity, wind, timezone, icon, perci)
+    dailyForcast(weatherData.daily)
 
+}
+
+function dailyForcast(daily) {
+  const forecastContainer = document.querySelector(".forecast")
+  forecastContainer.innerHTML = ""
+
+  for (let i = 1; i <= 5; i++) {
+    const date = new Date(daily.time[i])
+    const dayName = date.toLocaleDateString("hu-HU" , {weekday :"short"})
+    const temp = Math.round(daily.temperature_2m_max[i])
+    const iconCode = daily.weather_code[i]
+    const icon = getWeatherIcon(iconCode)
+
+    const dayDiv = document.createElement("div")
+    dayDiv.className = "day"
+    if (i == 1) dayDiv.classList.add("active")
+
+    dayDiv.innerHTML = `
+      <p>${dayName}</p>
+      <span>${icon}</span>
+      <h4>${temp}°C</h4>
+    `  
+      forecastContainer.appendChild(dayDiv)
+  }
+  
 }
 
 searchBtn.addEventListener("click", GetWeather);
