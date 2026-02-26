@@ -1,4 +1,3 @@
-
 const searchBtn = document.getElementById("searchBtn");
 const cityName = document.getElementById("location");
 const temperatureValue = document.getElementById("temperature");
@@ -11,6 +10,7 @@ const precipitationValue = document.getElementById("precipitation");
 
 async function GetWeather() {
     const cityInput = document.getElementById("cityInput").value;
+    if (!cityInput) return; //uj
 
     const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${cityInput}&count=10&language=hu`)
     const geoData = await geoResponse.json();
@@ -18,8 +18,8 @@ async function GetWeather() {
     const lat = geoData.results[0].latitude
     const lon = geoData.results[0].longitude
     const timezone = geoData.results[0].timezone;
-    
-    const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto&hourly=relative_humidity_2m,precipitation`)
+    //ez valtozott precipitation helyett precipitation_probability
+    const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto&hourly=relative_humidity_2m,precipitation_probability`)
     const weatherData = await weatherResponse.json();
 
     console.log(weatherData.current_weather.time)
@@ -32,7 +32,8 @@ async function GetWeather() {
     const wind = getKmh(weatherData.current_weather.windspeed);
     const temp = weatherData.current_weather.temperature;
     const icon = weatherData.current_weather.weathercode
-    const perci = weatherData.hourly.precipitation[0]
+    //uj
+    const perci = weatherData.hourly.precipitation_probability[0];
     console.log(perci)
     writeData(city, temp, humidity, wind, timezone, icon, perci)
 
@@ -51,7 +52,8 @@ function writeData(city, temp, hum, wind, timezone, icon, perci) {
     dateDayValue.innerHTML =  now.toLocaleDateString("hu-HU", { weekday: "long",timeZone: `${timezone}` })
     dateValue.innerHTML = now.toLocaleDateString("hu-HU",options);
     iconData.innerHTML = getWeatherIcon(icon);
-    precipitation.innerHTML = `${perci}%`; 
+    //uj
+    precipitationValue.innerHTML = `${perci}%`;
     
 
 }
@@ -88,6 +90,3 @@ function getKmh(mph){
     const changeNumber = 1.609344;
     return Math.floor(mph * changeNumber);
 }
-
-
-
