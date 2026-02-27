@@ -7,10 +7,13 @@ const dateValue = document.getElementById("date");
 const dateDayValue = document.getElementById("dateDay");
 const iconData = document.getElementById("iconData");
 const precipitationValue = document.getElementById("precipitation");
+const statusValue = document.querySelector(".status")
+let country;
+
 
 async function GetWeather() {
     const cityInput = document.getElementById("cityInput").value;
-    if (!cityInput) return; //uj
+    if (!cityInput) return;
 
     const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${cityInput}&count=10&language=hu`)
     const geoData = await geoResponse.json();
@@ -18,12 +21,11 @@ async function GetWeather() {
     const lat = geoData.results[0].latitude
     const lon = geoData.results[0].longitude
     const timezone = geoData.results[0].timezone;
-    //ez valtozott precipitation helyett precipitation_probability
+    country = geoData.results[0].country;
+    
     const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weather_code,temperature_2m_max&timezone=auto&hourly=relative_humidity_2m,precipitation_probability`)
     const weatherData = await weatherResponse.json();
 
-    console.log(weatherData.current_weather.time)
-    console.log(geoData.results[0].country)
 
 
 
@@ -32,7 +34,7 @@ async function GetWeather() {
     const wind = getKmh(weatherData.current_weather.windspeed);
     const temp = weatherData.current_weather.temperature;
     const icon = weatherData.current_weather.weathercode
-    //uj
+    
     const perci = weatherData.hourly.precipitation_probability[0];
     console.log(perci)
     writeData(city, temp, humidity, wind, timezone, icon, perci)
@@ -49,11 +51,10 @@ function dailyForcast(daily) {
     const dayName = date.toLocaleDateString("hu-HU" , {weekday :"short"})
     const temp = Math.round(daily.temperature_2m_max[i])
     const iconCode = daily.weather_code[i]
-    const icon = getWeatherIcon(iconCode)
+    const icon = getWeatherIcon(iconCode)[0]
 
-    const dayDiv = document.createElement("div")
-    dayDiv.className = "day"
-    if (i == 1) dayDiv.classList.add("active")
+    const dayDiv = document.createElement("div");
+    dayDiv.className = "day";
 
     dayDiv.innerHTML = `
       <p>${dayName}</p>
@@ -77,37 +78,48 @@ function writeData(city, temp, hum, wind, timezone, icon, perci) {
     const options = {timeZone: `${timezone}`, year: 'numeric', month: 'short', day: 'numeric' };
     dateDayValue.innerHTML =  now.toLocaleDateString("hu-HU", { weekday: "long",timeZone: `${timezone}` })
     dateValue.innerHTML = now.toLocaleDateString("hu-HU",options);
-    iconData.innerHTML = getWeatherIcon(icon);
-    //uj
+    iconData.innerHTML = getWeatherIcon(icon)[0];
+    statusValue.innerHTML = getWeatherIcon(icon)[1];
+    
     precipitationValue.innerHTML = `${perci}%`;
     
 
 }
 
 function getWeatherIcon(code) {
-    switch (true) {
+  switch (true) {
     case (code === 0):
-      return "☀️";
+      return ["☀️", "Napos"];
+
     case ([1, 2, 3].includes(code)):
-      return "🌤️";
+      return ["🌤️", "Enyhén felhős"];
+
     case ([45, 48].includes(code)):
-      return "🌫️";
+      return ["🌫️", "Ködös"];
+
     case ([51, 53, 55, 56, 57].includes(code)):
-      return "🌦️";
+      return ["🌦️", "Szitálás / Gyenge eső"];
+
     case ([61, 63, 65, 66, 67].includes(code)):
-      return "🌧️";
+      return ["🌧️", "Eső"];
+
     case ([71, 73, 75, 77].includes(code)):
-      return "❄️";
+      return ["❄️", "Havazás"];
+
     case ([80, 81, 82].includes(code)):
-      return "🌦️";
+      return ["🌦️", "Zápor"];
+
     case ([85, 86].includes(code)):
-      return "🌨️";
+      return ["🌨️", "Hózápor"];
+
     case (code === 95):
-      return "⚡";
+      return ["⚡", "Zivatar"];
+
     case ([96, 99].includes(code)):
-      return "⛈️";
+      return ["⛈️", "Zivatar jégesővel"];
+
     default:
-      return "❓";
+      return ["❓", "Ismeretlen időjárás"];
   }
 }
 
@@ -116,3 +128,6 @@ function getKmh(mph){
     const changeNumber = 1.609344;
     return Math.floor(mph * changeNumber);
 }
+
+
+module.exports = {country};
